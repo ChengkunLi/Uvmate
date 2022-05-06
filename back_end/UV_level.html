@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UV level tracker</title>
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <h2>UV Level tracker</h2>
+        <img src="http://www.foresthillweather.com/images/UV/UVdesc-final.gif" width="300" height="200" class="center"/>
+        <p>Click the button to get your local info.</p>
+        <button onclick="getLocation()">Share My Location</button>
+        <button onclick="noshare()">Not Share My Location</button>
+        <p id="demo"></p>
+        <div class="mypanel"></div>
+        <script>
+            var x = document.getElementById("demo");
+            function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+            }
+            function showPosition(position) {
+                var lat = position.coords.latitude;
+                var long = position.coords.longitude;
+                $.getJSON('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + long + '&exclude=hourly,daily&appid=192a84b0c397230ece407c5f6e65dc47', function(data) {
+
+                    var text = `UV Index: ${data.current.uvi}<br>
+                                Timezone: ${data.timezone}<br>
+                                Humidity: ${data.current.humidity} RH<br>
+                                Temperature: ${(data.current.temp-273.15).toFixed(2)} Celsius
+                                `
+                    $(".mypanel").html(text);
+                });
+            }
+            function noshare() {
+                $.getJSON('https://api.openweathermap.org/data/2.5/onecall?lat=-37.020100&lon=144.964600&exclude=hourly,daily&appid=192a84b0c397230ece407c5f6e65dc47', function(data) {
+
+                    var text = `UV Index: ${data.current.uvi}<br>
+                                Timezone: ${data.timezone}<br>
+                                Humidity: ${data.current.humidity} RH<br>
+                                Temperature: ${(data.current.temp-273.15).toFixed(2)} Celsius
+                                `
+                    $(".mypanel").html(text);
+                });
+            }
+        </script>
+    </body>
+</html>
