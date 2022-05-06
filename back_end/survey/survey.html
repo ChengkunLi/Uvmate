@@ -1,0 +1,754 @@
+<html>
+ 
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <style>
+        body {
+            
+            font-family: 'Raleway', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1602785164803-9a6cf611f3b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fHJlbGF4fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+        }
+         
+        .container {
+            width: 900px;
+            height: 5200px;
+            background-color: rgba(255, 255, 255, 0.849);
+            position: absolute;
+            left: 50%;
+            top: 2750px ;
+            transform: translateX(-50%) translateY(-50%);
+            border-radius: 20px;
+        }
+
+        .ref {
+            display: inline-block;
+            vertical-align: top;
+            background-color: rgba(101, 223, 85, 0.801);
+            box-sizing: border-box;
+            width: 900px;
+            height: 470px;
+            padding: 30px 30px 40px 30px;
+            text-align: left;
+            font-size: large;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+         
+        h1 {
+            position: absolute;
+            left: 50%;
+            top: -72px ;
+            width: 700px;
+            transform: translateX(-50%);
+            background-color: #f0ff1b;
+            color: rgb(27, 26, 26);
+            font-weight: 200;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            font-family: arial
+        }
+        .wrapper {
+            padding: 20px;
+        }
+         
+        input,
+        select {
+            width: 80%;
+            border: none;
+            border-bottom: 1px solid #0074D9;
+            padding: 10px;
+        }
+         
+        input:focus,
+        select:focus {
+            border: 1px solid #0074D9;
+            outline: none;
+        }
+         
+        select {
+            width: 88% !important;
+        }
+         
+        button {
+            margin: 20px auto;
+            width: 250px;
+            height: 50px;
+            background-color: #39CCCC;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+         
+        .tip {
+            text-align: center;
+            font-size: 18px;
+            display: none;
+            
+        }
+
+        #tooltip-container {
+              position: absolute;
+              background-color: white;
+              padding: 0px 15px 0px 15px;
+              display: none;
+              border: 1px solid #555;
+          }
+        #tooltip-text {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+ 
+<body>
+    <div class="container">
+        <h1 style="font-size:30px">Survey : My Contribution to Air Pollution.</h1>
+        <center><h2>(This webiste is not going to record any of your inforamtion!)</h2></center>
+        <div class="wrapper">
+             
+ 
+            
+            <p>1.How often do you get your air conditioner serviced?</p>
+            <center><img src="https://www.consumer.org.hk/f/press_release/307935/1200c630/W1605CHOI_split-type-room-air-conditioners01ps.jpg" width="300" height="200" class="center"/></center>
+            
+            
+                        <select id="conditioner">
+                           <option selected disabled hidden>Select</option>
+                           <option value="0">1-2 years </option>
+                           <option value="1">2-3 years </option>
+                           <option value="2">More than 3 years </option>
+                        </select>
+            
+                        
+            
+            
+            <p>2.What is the fuel type of your car ?</p>
+            <center><img src="https://businesstech.co.za/news/wp-content/uploads/2021/11/Petrol-1.jpg" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="fuel">
+                           <option selected disabled hidden>Select</option>
+                           <option value=2>petrol</option>
+                           <option value=1>Diesel</option>
+                           <option value=0>Electric</option>
+                           <option value=0>None</option>
+                        </select>
+            
+                        
+            
+            
+            <p>3.Do you carpool?</p>
+            <center><img src="https://pic2.zhimg.com/v2-73889bbbc8e1ce5012293337a7e4ed21_b.jpg" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="carpool">
+                           <option selected disabled hidden>Select</option>
+                           <option value=0>Yes</option>
+                           <option value=1>No</option>
+                        </select>
+                        
+            
+            <p>4.Do you have solar power plant at your home?</p>
+            <center><img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780128195567000036-f03-19-9780128195567.jpg" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="solar">
+                           <option selected disabled hidden>Select</option>
+                           <option value=0>Yes</option>
+                           <option value=1>No</option>
+                        </select>
+            
+            <p>5.Do you check for energy efficiency ratings before buying a home appliance?</p>
+            <center><img src="https://cdn2.vectorstock.com/i/1000x1000/28/76/energy-efficiency-rating-classification-vector-20022876.jpg" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="efficiency">
+                           <option selected disabled hidden>Select</option>
+                           <option value=0>Yes</option>
+                           <option value=1>No</option>
+                        </select>
+
+            <p>6.Do you check the ingredients of the cleaning products that you buy?</p>
+            <center><img src="https://thumbs.dreamstime.com/b/detergents-bottles-vector-cartoon-set-cleaning-products-supplies-home-household-plastic-different-shapes-template-toilet-212138064.jpg" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="ingredients">
+                           <option selected disabled hidden>Select</option>
+                           <option value=0>Yes</option>
+                           <option value=1>No</option>
+                        </select>
+            
+            
+            <button id="calculate">Generate Your Report</button>
+        </div>
+        
+
+        <div class="tip">
+            <h2>Thanks for your participation!</h2>
+            <span id="total">1</span>
+            <p>Did you know that the refrigerants contained in air-conditioners and refrigerators can be extremely harmful to the environment? Today's air conditioners are becoming increasingly ozone-friendly, but they still can be extremely harmful to the environment.</p>
+            <div id="my_dataviz"></div>
+            <div id="tooltip"></div>
+            <div id="tooltip-container">
+                <p id="tooltip-text">Tooltip text goes here.</p>
+            </div>
+            <p>A typical passenger vehicle emits about 4.6 metric tons of carbon dioxide per year. This assumes the average gasoline vehicle on the road today has a fuel economy of about 22.0 miles per gallon and drives around 11,500 miles per year. Every gallon of gasoline burned creates about 8,887 grams of CO2.</p>
+            <p>Global average temperatures have increased by more than 1℃ since pre-industrial times, things could be different if people start using electric car or carpooling.</p>
+            <div id="my_dataviz1"></div>
+            <p>Indoor air pollution is a risk factor for several of the world’s leading causes of death, including heart disease, pneumonia, stroke, diabetes and lung cancer.3 In the chart we see that it is one of the leading risk factors for death globally.</p>
+            <p>According to the Global Burden of Disease study 2.31 million deaths were attributed to indoor pollution in the latest year.</p>
+            <div id="my_dataviz2"></div>
+            <p>But do not be nervous! There is obviously annual decrease in the death rate from air pollution.</p>
+            <p>At the global level, we see that the death rate from ozone exposure is small (less than 5%). Rates of PM and indoor pollution exposure are fairly equal (although in 2015, the rate of PM is slightly higher than that of indoor pollution). Overall, it is still necessary to attach importance to envirmental protection.</p>
+            <div id="my_dataviz3"></div>
+            
+        </div>
+        <div class="ref">
+            <h3>References</h3>
+            <p style="font-size: medium;"><i>https://d3-graph-gallery.com/graph/stackedarea_wideinput.html</i></p>    
+            <p style="font-size: medium;"><i>https://d3-graph-gallery.com/graph/barplot_horizontal.html</i></p> 
+            <p style="font-size: medium;"><i>https://d3-graph-gallery.com/graph/line_several_group.html</i></p>  
+            <p style="font-size: medium;"><i>https://www.geeksforgeeks.org/design-a-tip-calculator-using-html-css-and-javascript</i></p>   
+            <p style="font-size: medium;"><i>Ritchie, H. (2017, April 20). What is my risk of dying prematurely from air pollution? Our World in Data. Retrieved April 6, 2022, from https://ourworldindata.org/air-pollution-post </i></p>  
+            <p style="font-size: medium;"><i>Ritchie, H., &amp; Roser, M. (2018, April 5). Ozone layer. Our World in Data. Retrieved April 6, 2022, from https://ourworldindata.org/ozone-layer </i></p> 
+          </div>
+        
+    </div>
+    <script>
+        var tooltip = d3.select("#tooltip-container")
+
+        // set the dimensions and margins of the graph
+        var margin = {top: 30, right: 100, bottom: 30, left: 120},
+            width = 860 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+        
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+        
+        //Read the data
+        d3.csv("https://raw.githubusercontent.com/ChengkunLi/fit5147/main/ozone_layer.csv", function(data) {
+        
+            // List of groups (here I have one group per column)
+            var allGroup = ["natural", "total"]
+        
+            // Reformat the data: we need an array of arrays of {x, y} tuples
+            var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+              return {
+                name: grpName,
+                values: data.map(function(d) {
+                  return {time: d.time, value: +d[grpName]};
+                })
+              };
+            });
+            // I strongly advise to have a look to dataReady with
+            // console.log(dataReady)
+        
+            // A color scale: one color for each group
+            var myColor = d3.scaleOrdinal()
+              .domain(allGroup)
+              .range(d3.schemeSet2);
+        
+            // Add X axis --> it is a date format
+            var x = d3.scaleLinear()
+              .domain([1960,2022])
+              .range([ 0, width ]);
+            svg.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+        
+            // Add Y axis
+            var y = d3.scaleLinear()
+              .domain([120000,1600000])
+              .range([ height, 0 ]);
+            svg.append("g")
+              .call(d3.axisLeft(y));
+        
+            // Add the lines
+            var line = d3.line()
+              .x(function(d) { return x(+d.time) })
+              .y(function(d) { return y(+d.value) })
+            svg.selectAll("myLines")
+              .data(dataReady)
+              .enter()
+              .append("path")
+                .attr("d", function(d){ return line(d.values) } )
+                .attr("stroke", function(d){ return myColor(d.name) })
+                .style("stroke-width", 4)
+                .style("fill", "none")
+        
+            // Add the points
+            svg
+              // First we need to enter in a group
+              .selectAll("myDots")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .style("fill", function(d){ return myColor(d.name) })
+              // Second we need to enter in the 'values' part of this group
+              .selectAll("myPoints")
+              .data(function(d){ return d.values })
+              .enter()
+              .append("circle")
+                .attr("cx", function(d) { return x(d.time) } )
+                .attr("cy", function(d) { return y(d.value) } )
+                .attr("r", 5)
+                .attr("stroke", "white")
+                .on("mouseover",function(d){
+                  d3.select(this)
+                      .style("stroke","black")
+                      .style("opacity",2)
+
+                  tooltip
+                      .style("display","block")
+                  
+                  tooltip.select("#tooltip-text")
+                      .text("Year " + d.time + " : " +d.value + " tonnes")})
+                .on("mousemove",function(){
+                    tooltip
+                        .style("left",(d3.mouse(this)[0]+150)+ "px")
+                        .style("top", (d3.mouse(this)[1]+2000)+ "px");
+                })
+                .on("mouseout",function(){
+                    d3.select(this).attr("stroke","none");
+                    tooltip.style("display","none");
+                })
+        
+            // Add a legend at the end of each line
+            svg
+              .selectAll("myLabels")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+                  .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+                  .attr("x", 12) // shift the text a bit more right
+                  .text(function(d) { return d.name; })
+                  .style("fill", function(d){ return myColor(d.name) })
+                  .style("font-size", 15)
+                })
+            svg.append("text")
+        .       attr("class", "x label")
+                .attr("text-anchor", "end")
+                .attr("x", width +20)
+                .attr("y", height -6)
+                .text("Year");
+            svg.append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("y", 6)
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+                .text("tonne(s)");
+            svg.append("circle").attr("cx",50).attr("cy",0).attr("r", 6).style("fill", "#69b3a2")
+            svg.append("circle").attr("cx",50).attr("cy",25).attr("r", 6).style("fill", "orange")
+            svg.append("text").attr("x", 70).attr("y", 0).text("Natural emissions").style("font-size", "15px").attr("alignment-baseline","middle")
+            svg.append("text").attr("x", 70).attr("y", 25).text("Total emissions include emissions from natural and man-made sources. ").style("font-size", "15px").attr("alignment-baseline","middle")
+        
+        
+    </script>
+    <script>
+        //https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions
+        var tooltip = d3.select("#tooltip-container")
+
+        // set the dimensions and margins of the graph
+        var margin1 = {top: 30, right: 100, bottom: 30, left: 120},
+            width1 = 860 - margin1.left - margin1.right,
+            height1 = 500 - margin1.top - margin1.bottom;
+        
+        // append the svg object to the body of the page
+        var svg1 = d3.select("#my_dataviz1")
+          .append("svg")
+            .attr("width", width1 + margin1.left + margin1.right)
+            .attr("height", height1 + margin1.top + margin1.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin1.left + "," + margin1.top + ")");
+        
+        //Read the data
+        d3.csv("https://raw.githubusercontent.com/ChengkunLi/fit5147/main/temperature.csv", function(data) {
+        
+            // List of groups (here I have one group per column)
+            var allGroup = ["average"]
+        
+            // Reformat the data: we need an array of arrays of {x, y} tuples
+            var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+              return {
+                name: grpName,
+                values: data.map(function(d) {
+                  return {time: d.time, value: +d[grpName]};
+                })
+              };
+            });
+            // I strongly advise to have a look to dataReady with
+            // console.log(dataReady)
+        
+            // A color scale: one color for each group
+            var myColor = d3.scaleOrdinal()
+              .domain(allGroup)
+              .range(d3.schemeSet2);
+        
+            // Add X axis --> it is a date format
+            var x = d3.scaleLinear()
+              .domain([1845,2024])
+              .range([ 0, width1 ]);
+            svg1.append("g")
+              .attr("transform", "translate(0," + height1 + ")")
+              .call(d3.axisBottom(x));
+        
+            // Add Y axis
+            var y = d3.scaleLinear()
+              .domain([-0.8,1])
+              .range([ height1, 0 ]);
+            svg1.append("g")
+              .call(d3.axisLeft(y));
+        
+            // Add the lines
+            var line = d3.line()
+              .x(function(d) { return x(+d.time) })
+              .y(function(d) { return y(+d.value) })
+            svg1.selectAll("myLines")
+              .data(dataReady)
+              .enter()
+              .append("path")
+                .attr("d", function(d){ return line(d.values) } )
+                .attr("stroke", function(d){ return myColor(d.name) })
+                .style("stroke-width", 4)
+                .style("fill", "none")
+        
+            // Add the points
+            svg1
+              // First we need to enter in a group
+              .selectAll("myDots")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .style("fill", function(d){ return myColor(d.name) })
+              // Second we need to enter in the 'values' part of this group
+              .selectAll("myPoints")
+              .data(function(d){ return d.values })
+              .enter()
+              .append("circle")
+                .attr("cx", function(d) { return x(d.time) } )
+                .attr("cy", function(d) { return y(d.value) } )
+                .attr("r", 5)
+                .attr("stroke", "white")
+                .on("mouseover",function(d){
+                  d3.select(this)
+                      .style("stroke","black")
+                      .style("opacity",2)
+
+                  tooltip
+                      .style("display","block")
+                  
+                  tooltip.select("#tooltip-text")
+                      .text("Year " + d.time + " : " +d.value + " ℃")})
+                .on("mousemove",function(){
+                    tooltip
+                        .style("left",(d3.mouse(this)[0]+150)+ "px")
+                        .style("top", (d3.mouse(this)[1]+2650)+ "px");
+                })
+                .on("mouseout",function(){
+                    d3.select(this).attr("stroke","none");
+                    tooltip.style("display","none");
+                })
+        
+            // Add a legend at the end of each line
+            svg1
+              .selectAll("myLabels")
+              .data(dataReady)
+              .enter()
+                .append('g')
+                .append("text")
+                  .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+                  .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+                  .attr("x", 12) // shift the text a bit more right
+                  .text(function(d) { return d.name; })
+                  .style("fill", function(d){ return myColor(d.name) })
+                  .style("font-size", 15)
+        
+                })
+            svg1.append("text")
+                .attr("class", "x label")
+                .attr("text-anchor", "end")
+                .attr("x", width1)
+                .attr("y", height1 -6)
+                .text("Year");
+            svg1.append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("y", 6)
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+                .text("Celsius ℃");
+            svg1.append("circle").attr("cx",50).attr("cy",20).attr("r", 6).style("fill", "#69b3a2")
+            svg1.append("text").attr("x", 70).attr("y", 20).text("Median temperature anomaly from 1961-1990 average").style("font-size", "15px").attr("alignment-baseline","middle")
+            
+        
+    </script>
+    <script>
+
+
+        // set the dimensions and margins of the graph
+        var margin2 = {top: 20, right: 30, bottom: 70, left: 180},
+            width2 = 860 - margin2.left - margin2.right,
+            height2 = 600 - margin2.top - margin2.bottom;
+        
+        // append the svg object to the body of the page
+        var svg3 = d3.select("#my_dataviz2")
+          .append("svg")
+            .attr("width", width2 + margin2.left + margin2.right)
+            .attr("height", height2 + margin2.top + margin2.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin2.left + "," + margin2.top + ")");
+        
+        // Parse the Data
+        d3.csv("https://raw.githubusercontent.com/ChengkunLi/fit5147/main/death.csv", function(data) {
+        
+          // Add X axis
+          var x = d3.scaleLinear()
+            .domain([0, 11000000])
+            .range([ 0, width2]);
+          svg3.append("g")
+            .attr("transform", "translate(0," + height2 + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+              .attr("transform", "translate(-10,0)rotate(-45)")
+              .style("text-anchor", "end");
+        
+          // Y axis
+          var y = d3.scaleBand()
+            .range([ 0, height2 ])
+            .domain(data.map(function(d) { return d.Country; }))
+            .padding(.1);
+          svg3.append("g")
+            .call(d3.axisLeft(y))
+        
+          //Bars
+          svg3.selectAll("myRect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", x(0) )
+            .attr("y", function(d) { return y(d.Country); })
+            .attr("width", function(d) { return x(d.Value); })
+            .attr("height", y.bandwidth() )
+            .attr("fill", "#8f1747")
+            .on("mouseover",function(d){
+                  d3.select(this)
+                      .style("stroke","black")
+                      .style("opacity",2)
+
+                  tooltip
+                      .style("display","block")
+                  
+                  tooltip.select("#tooltip-text")
+                      .text(d.Country + " : " +d.Value + " deaths")})
+                .on("mousemove",function(){
+                    tooltip
+                        .style("left",(d3.mouse(this)[0]+150)+ "px")
+                        .style("top", (d3.mouse(this)[1]+3250)+ "px");
+                })
+                .on("mouseout",function(){
+                    d3.select(this).attr("stroke","none");
+                    tooltip.style("display","none");
+                })
+        svg3.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width2)
+            .attr("y", height2 -6)
+            .text("(Deaths)");
+        
+            
+        
+        })
+        
+    </script>
+    <script>
+
+        // set the dimensions and margins of the graph
+        var margin4 = {top: 20, right: 30, bottom: 30, left: 55},
+            width4 = 900 - margin.left - margin.right,
+            height4 = 600 - margin.top - margin.bottom;
+        
+        // append the svg object to the body of the page
+        var svg4 = d3.select("#my_dataviz3")
+          .append("svg")
+            .attr("width", width4 + margin4.left + margin4.right)
+            .attr("height", height4 + margin4.top + margin4.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin4.left + "," + margin4.top + ")");
+        
+        // Parse the Data
+        d3.csv("https://raw.githubusercontent.com/ChengkunLi/fit5147/main/death_rate.csv", function(data) {
+        
+          // List of groups = header of the csv files
+          var keys = data.columns.slice(1)
+        
+          // Add X axis
+          var x = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) { return d.year; }))
+            .range([ 0, width ]);
+          svg4.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).ticks(5));
+        
+          // Add Y axis
+          var y = d3.scaleLinear()
+            .domain([0, 180])
+            .range([ height, 0 ]);
+          svg4.append("g")
+            .call(d3.axisLeft(y));
+        
+          // color palette
+          var color = d3.scaleOrdinal()
+            .domain(keys)
+            .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf'])
+        
+          //stack the data?
+          var stackedData = d3.stack()
+            .keys(keys)
+            (data)
+            //console.log("This is the stack result: ", stackedData)
+        
+          // Show the areas
+          svg4
+            .selectAll("mylayers")
+            .data(stackedData)
+            .enter()
+            .append("path")
+              .style("fill", function(d) { console.log(d.key) ; return color(d.key); })
+              .attr("d", d3.area()
+                .x(function(d, i) { return x(d.data.year); })
+                .y0(function(d) { return y(d[0]); })
+                .y1(function(d) { return y(d[1]); })
+                )
+
+        svg4.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width4)
+            .attr("y", height4-46)
+            .text("Year");
+        svg4.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", -46)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("deaths per 100,000");
+        
+        })
+        svg4.append("circle").attr("cx",500).attr("cy",100).attr("r", 6).style("fill", "#4daf4a")
+        svg4.append("circle").attr("cx",500).attr("cy",130).attr("r", 6).style("fill", "#377eb8")
+        svg4.append("circle").attr("cx",500).attr("cy",160).attr("r", 6).style("fill", "#e41a1c")
+        svg4.append("text").attr("x", 520).attr("y", 100).text("Indoor Air Pollution").style("font-size", "15px").attr("alignment-baseline","middle")
+        svg4.append("text").attr("x", 520).attr("y", 130).text("Outdoor Particulate Pollution").style("font-size", "15px").attr("alignment-baseline","middle")
+        svg4.append("text").attr("x", 520).attr("y", 160).text("Outdoor Ozone Pollution").style("font-size", "15px").attr("alignment-baseline","middle")
+            
+    </script>
+    <script>
+        
+        window.onload = () =>
+            {
+               
+                document.querySelector('#calculate').onclick =
+                calculateRisk;
+            }
+        
+        
+ 
+        function calculateRisk() {
+            
+            let conditioner = document.querySelector('#conditioner').value;
+            let fuel = document.querySelector('#fuel').value;
+            let carpool = document.querySelector('#carpool').value;
+            let solar = document.querySelector('#solar').value;
+            let efficiency = document.querySelector('#efficiency').value;
+            let ingredients = document.querySelector('#ingredients').value;
+      
+            console.log(conditioner);
+            
+            if (conditioner === 'Select') {
+                alert("Please complete all the questions, question 1 is empty.");
+                return;
+            }
+            console.log(fuel);
+            
+            if (fuel === 'Select') {
+                alert("Please complete all the questions, question 2 is empty.");
+                return;
+            }
+            console.log(carpool);
+           
+            if (carpool === 'Select') {
+                alert("Please complete all the questions, question 3 is empty.");
+                return;
+            }
+            console.log(solar);
+            
+            if (solar === 'Select') {
+                alert("Please complete all the questions, question 4 is empty.");
+                return;
+            
+            }console.log(efficiency);
+            
+            if (efficiency === 'Select') {
+                alert("Please complete all the questions, question 5 is empty.");
+                return;
+            }
+            console.log(ingredients);
+            
+            if (ingredients === 'Select') {
+                alert("Please complete all the questions, question 6 is empty.");
+                return;
+            }
+            
+ 
+    
+            let total = conditioner + fuel + carpool + solar + efficiency + ingredients;
+            
+            
+            if (total <= 11){
+                total = "Excellent! We are pround of your efforts!";}
+            else if ( 1111 >= total && total > 11){
+                total = "Going well! But you still to think more.";}
+            else {
+                total = "You probably need to think more about the air pollution.";}
+        
+ 
+            
+            //https://www.geeksforgeeks.org/design-a-tip-calculator-using-html-css-and-javascript/
+            document.querySelector('.tip').style.display = 'block';
+            document.querySelector('#total').innerHTML = total;
+
+                
+        }
+    </script>
+</body>
+ 
+</html>
+
+            
