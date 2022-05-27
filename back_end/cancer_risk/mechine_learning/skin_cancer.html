@@ -1,0 +1,269 @@
+<html>
+ 
+<head>
+    <style>
+        body {
+            
+            font-family: 'Raleway', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max');
+        }
+         
+        .container {
+            width: 750px;
+            height: 2600px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 1350px ;
+            transform: translateX(-50%) translateY(-50%);
+            border-radius: 20px;
+        }
+         
+        h1 {
+            position: absolute;
+            left: 50%;
+            top: -72px ;
+            width: 700px;
+            transform: translateX(-50%);
+            background-color: #1bffec;
+            color: rgb(27, 26, 26);
+            font-weight: 200;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            font-family: arial
+        }
+        .wrapper {
+            padding: 20px;
+        }
+         
+        input,
+        select {
+            width: 80%;
+            border: none;
+            border-bottom: 1px solid #0074D9;
+            padding: 10px;
+        }
+         
+        input:focus,
+        select:focus {
+            border: 1px solid #0074D9;
+            outline: none;
+        }
+         
+        select {
+            width: 88% !important;
+        }
+         
+        button {
+            margin: 20px auto;
+            width: 150px;
+            height: 50px;
+            background-color: #39CCCC;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+         
+        .tip {
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div class="container">
+        <h1 style="font-size:30px">Melanoma Risk Calculator</h1>
+        <h2>(This webiste is not going to record any of your inforamtion!)</h2>
+        <div class="wrapper">
+             
+ 
+            
+            <p>What is your gender?</p>
+            <center><img src="https://thumbs.dreamstime.com/b/male-female-icons-blue-pink-color-gender-symbol-vector-illustration-162284031.jpg" width="300" height="200" class="center"/></center>
+            
+            
+                        <select id="gender">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1.34">Male </option>
+                           <option value="1">Female </option>
+                        </select>
+            
+                        
+            
+            
+            <p>what is your age grade?</p>
+            <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6TdfuVlco2h9-XDy0fyil2L1KMUdNIEDbpQ&usqp=CAU" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="age">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1">up to 30</option>
+                           <option value="1.2">50</option>
+                           <option value="1.57">more than 65</option>
+                        </select>
+            
+                        
+            
+            
+            <p>How many sunburns did you get where the skin peeled during your childhood and teenage years?</p>
+            <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_oOcJo8I-aTpsCe0WafSKug-8y0kEc8S9Yg&usqp=CAU" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="sunburn">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1">None</option>
+                           <option value="1.01">1 - 2</option>
+                           <option value="1.08">3 - 5</option>
+                           <option value="1.49">more than 6</option>
+                        </select>
+                        
+            
+            <p>What was your natural skin colour?</p>
+            <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShZEWoCHGdxJ6EShrE5HXu6gl9q5ocqaRfDg&usqp=CAU" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="colour">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1">Dark brown/black</option>
+                           <option value="26">White</option>
+                           <option value="6">Yellow</option>
+                        </select>
+            
+            <p>How many freckles did you have on your arms when aged 15?</p>
+            <center><img src="data:image/jpeg;base64,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" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="freckles">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1">None</option>
+                           <option value="1.01">Few</option>
+                           <option value="1.04">Several</option>
+                           <option value="1.2">A lot</option>
+                        </select>
+
+            <p>How many moles do you have on your right and left arms combined (counting from the tip of your shoulder down to your hands)</p>
+            <center><img src="https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/topic_centers/2019-3/Normal_moles_nevi-1296x728-gallery_slide1.jpg?w=1155" width="300" height="200" class="center"/></center>
+            
+            
+            
+                        <select id="moles">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1">None</option>
+                           <option value="1.001">1</option>
+                           <option value="1.005">2</option>
+                           <option value="1.01">3 or more</option>
+                        </select>
+
+            <p>Have you had any skin cancer before (Melanoma, BCC or SCC)?</p>
+            <center><img src="https://post.healthline.com/wp-content/uploads/2020/08/woman_cancer-732x549-thumbnail-732x549.jpg" width="300" height="200" class="center"/></center>
+            
+            
+                        <select id="cancer">
+                           <option selected disabled hidden>Select</option>
+                           <option value="1.134">Yes</option>
+                           <option value="1">No</option>
+                        </select>
+                        <button id="calculate">Calculate</button>
+                     </div>
+            
+             <div class="tip">
+
+                 <h2>Your Risk Level is</h2>
+                <span id="total">1</span>
+            </div>
+    </div>
+    <script>
+        
+        window.onload = () =>
+            {
+               
+                document.querySelector('#calculate').onclick =
+                calculateRisk;
+            }
+        
+        
+ 
+        function calculateRisk() {
+            
+            let gender = document.querySelector('#gender').value;
+            let age = document.querySelector('#age').value;
+            let colour = document.querySelector('#colour').value;
+            let sunburn = document.querySelector('#sunburn').value;
+            let freckles = document.querySelector('#freckles').value;
+            let moles = document.querySelector('#moles').value;
+            let cancer = document.querySelector('#cancer').value;
+
+            console.log(gender);
+            
+            if (gender === 'Select') {
+                alert("Please select valid gender");
+                return;
+            }
+            console.log(age);
+            
+            if (age === 'Select') {
+                alert("Please select valid age");
+                return;
+            }console.log(colour);
+           
+            if (colour === 'Select') {
+                alert("Please select valid skin colour");
+                return;
+            }console.log(sunburn);
+            
+            if (sunburn === 'Select') {
+                alert("Please select valid sunburn value");
+                return;
+            }console.log(freckles);
+            
+            if (freckles === 'Select') {
+                alert("Please select valid freckle value");
+                return;
+            }console.log(moles);
+            
+            if (moles === 'Select') {
+                alert("Please select valid mole value");
+                return;
+            }console.log(cancer);
+            
+            if (cancer === 'Select') {
+                alert("Please select valid cancer history");
+                return;
+            }
+ 
+ 
+    
+            let total = gender * age * colour * cancer * freckles * moles * sunburn;
+            total = parseFloat(total.toFixed(2));
+            if (total < 40){
+                total = total + " low risk";}
+            else if ( 70 > total && total >= 40){
+                total = total + " relative low risk";}
+            else if (  100 > total && total >= 70){
+                total = total + " relative high risk";}
+            else {
+                total = total + "  high risk";}
+        
+ 
+            
+            //https://www.geeksforgeeks.org/design-a-tip-calculator-using-html-css-and-javascript/
+            document.querySelector('.tip').style.display = 'block';
+            document.querySelector('#total').innerHTML = total;
+        
+        }
+    </script>
+</body>
+ 
+</html>
+
+            
